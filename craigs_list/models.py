@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.forms import ModelForm
 
 COLUMBIA = 'Columbia'
 GREENVILLE = 'Greenville'
@@ -14,7 +15,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user
-
 
 
 class Category(models.Model):

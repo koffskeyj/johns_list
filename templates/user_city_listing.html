@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Listings Near You</h1>
+<br>
+  {% for listing in object_list %}
+    {{ listing.listing_category}} ::
+    {{ listing.listing_subcategory}} ::
+    <a href="{% url 'listing_detailed_view' listing.pk %}">{{ listing.title }}</a>
+      <br>
+  {% endfor %}
+{% endblock %}

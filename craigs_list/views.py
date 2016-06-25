@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import TemplateView, ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, View
+from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.core.urlresolvers import reverse_lazy
 from craigs_list.models import Category, SubCategory, Profile, Listing
 from django.contrib.auth.mixins import LoginRequiredMixin
+from craigs_list.forms import CityForm
+
 
 class IndexView(TemplateView):
     template_name = "index.html"
@@ -47,28 +49,24 @@ class SubCategoryListingView(ListView):
 
 
 class UserCityListingView(ListView):
-    template_name = "city_listing.html"
+    template_name = "user_city_listing.html"
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
             return Listing.objects.filter(city=self.request.user.profile.city).exclude(user=self.request.user)
 
 
-class AnonCityListingView(ListView):
-    model = Profile
-    fields = ["city"]
-    template_name = "city_listing.html"
-
-    def get_queryset(self, **kwargs):
-        city_name = self.kwargs.get()
+class AnonChooseCityView(FormView):
+    template_name = "anon_choose_city.html"
+    form_class = CityForm
 
 
 
 class ListingDetailedView(LoginRequiredMixin, DetailView):
     model = Listing
 
-class ProfileUpdateView(UpdateView):
 
+class ProfileUpdateView(UpdateView):
     fields = ["city"]
     success_url = reverse_lazy("profile_update_view")
 
