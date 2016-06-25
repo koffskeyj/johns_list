@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+<head>
+    <title>Listing Detail</title>
+</head>
+<body>
+<div class="container">
+{% block content %}
+    <h1>{{listing.listing_category}}<h1>
+    <h4>{{listing.listing_subcategory}}</h4>
+    <br>
+    Title: {{listing.title}} <br>
+    Description: {{listing.description}} <br>
+    Value: {{listing.value}}
+{% endblock %}
+</table>
+</div>
+</body>
+</html>
