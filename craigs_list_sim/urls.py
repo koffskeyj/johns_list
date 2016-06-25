@@ -15,17 +15,20 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from craigs_list.views import IndexView, UserCreateView, UserListingView, ProfileUpdateView, ListingCreateView, UserListingDetailedView, SubCategoryListingView, CityListingView
+from craigs_list.views import IndexView, UserCreateView, UserListingView, ProfileUpdateView, ListingCreateView, ListingDetailedView, SubCategoryListingView, UserCityListingView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name='index_view'),
-    url(r'^city_listing/$', CityListingView.as_view(), name='city_listing_view'),
+    url(r'^user_city_listing/$', UserCityListingView.as_view(), name='user_city_listing_view'),
+    url(r'^anon_city_listing/$', AnonCityListingView.as_view(), name='anon_city_listing_view')
     url(r'^(?P<pk>\d+)/$', SubCategoryListingView.as_view(), name='subcategory_listing_view'),
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^user_create/$', UserCreateView.as_view(), name='user_create_view'),
-    url(r'^accounts/profile/listings/details/(?P<pk>\d+)/$', UserListingDetailedView.as_view(), name='user_listing_detailed_view'),
+    url(r'^accounts/profile/listings/details/(?P<pk>\d+)/$', ListingDetailedView.as_view(), name='listing_detailed_view'),
     url(r'^accounts/profile/listings/$', UserListingView.as_view(), name='user_listing_view'),
     url(r'^accounts/profile/$', ProfileUpdateView.as_view(), name='profile_update_view'),
     url(r'^listing_create/$', ListingCreateView.as_view(), name='listing_create_view')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -5,6 +5,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from craigs_list.models import Category, SubCategory, Profile, Listing
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class IndexView(TemplateView):
     template_name = "index.html"
@@ -22,7 +23,7 @@ class UserCreateView(CreateView):
     success_url = "/login"
 
 
-class ListingCreateView(CreateView):
+class ListingCreateView(LoginRequiredMixin, CreateView):
     model = Listing
     fields = ["listing_category", "listing_subcategory", "title", "description", "value", "photo"]
     success_url = "/"
@@ -32,7 +33,7 @@ class ListingCreateView(CreateView):
         listing.user = self.request.user
         return super(ListingCreateView, self).form_valid(form)
 
-class UserListingView(ListView):
+class UserListingView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Listing.objects.filter(user=self.request.user)
@@ -45,15 +46,25 @@ class SubCategoryListingView(ListView):
         return Listing.objects.filter(listing_subcategory_id=category_id)
 
 
-class CityListingView(ListView):
+class UserCityListingView(ListView):
+    template_name = "city_listing.html"
 
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Listing.objects.filter(city=self.request.user.profile.city).exclude(user=self.request.user)
+
+
+class AnonCityListingView(ListView):
+    model = Profile
     fields = ["city"]
+    template_name = "city_listing.html"
 
     def get_queryset(self, **kwargs):
-        return Listing.objects.filter(city=fields)
+        city_name = self.kwargs.get()
 
 
-class UserListingDetailedView(DetailView):
+
+class ListingDetailedView(LoginRequiredMixin, DetailView):
     model = Listing
 
 class ProfileUpdateView(UpdateView):

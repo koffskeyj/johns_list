@@ -1,11 +1,10 @@
 {% extends "base.html" %}
   <div class="container">
     {% block content %}
-    <br>
     <h1>Your Listings</h1>
     <br>
     {% for listing in object_list %}
-      <a href="{% url 'user_listing_detailed_view' listing.pk %}">{{listing.title}}</a>
+      <a href="{% url 'listing_detailed_view' listing.pk %}">{{listing.title}}</a>
       <br>
     {% endfor %}
     {% endblock %}

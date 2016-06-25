@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title>John's List</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href='{% static "craigs_list/css/bootstrap.css" %}' media="screen" title="bootstrap" charset="utf-8">
     <link rel="stylesheet" href='{% static "craigs_list/css/craigs_list.css" %}' media="screen" charset="utf-8">
   </head>
   <body>
@@ -13,15 +13,16 @@
         <a href="{% url 'index_view' %}" role="button">Index</a> ::
         <a href="{% url 'logout' %}?next=/" role="button">Logout</a> ::
         <a href=" {% url 'listing_create_view' %}" role="button">Create Listing</a> ::
-        <a href="{% url 'user_listing_view' %}" role="button">View Your Listings</a>
+        <a href="{% url 'user_listing_view' %}" role="button">View Your Listings</a> ::
+        <a href="{% url 'user_city_listing_view' %}" role="button">Listings By City</a>
       <br>
       {{request.user}}
       <br>
       {% else %}
-        <a href="{% url 'city_listing_view' %}" role="button">By City</a>
-        <a href="{% url 'index_view' %}" role="button">Index</a> ::
         <a href=" {% url 'user_create_view' %}" role="button">Create User</a> ::
-        <a href="{% url 'login' %}" role="button">Login</a>
+        <a href="{% url 'login' %}" role="button">Login</a> ::
+        <a href="{% url 'index_view' %}" role="button">Index</a> ::
+        <a href="{% url 'anon_city_listing_view' %}" role="button">Listings By City</a>
       {% endif %}
     {% block content %}
       No content provided

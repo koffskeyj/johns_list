@@ -43,6 +43,11 @@ class Listing(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to="listing_photos", null=True, blank=True, verbose_name="Listing Photo")
 
+    @property
+    def photo_url(self):
+        if self.photo:
+            return self.photo.url
+
     def __str__(self):
         return self.title
 
