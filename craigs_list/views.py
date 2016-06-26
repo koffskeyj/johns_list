@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView, ListView, DetailView, View
-from django.views.generic.edit import CreateView, UpdateView, FormView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.core.urlresolvers import reverse_lazy
 from craigs_list.models import Category, SubCategory, Profile, Listing
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -72,3 +72,18 @@ class ProfileUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+class ListingUpdateView(LoginRequiredMixin, UpdateView):
+    model = Listing
+    fields = ['title', 'description', 'value', 'photo']
+    success_url = '/accounts/profile/listings'
+
+    def form_valid(self, form):
+
+        listing = form.save(commit=False)
+        listing.user = self.request.user
+        return super(ListingUpdateView, self).form_valid(form)
+
+class ListingDeleteView(LoginRequiredMixin, DeleteView):
+    model = Listing
+    success_url = '/accounts/profile/listings'
