@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Your Listings</h1>
+<br>
+  {% for listing in object_list %}
+  {{ listing.listing_category}} ::
+  {{ listing.listing_subcategory}} ::
+    <a href="{% url 'listing_detailed_view' listing.pk %}">{{ listing.title }}</a> ::
+    <a href=" {% url 'update_listing_view' listing.pk %}">Update</a> ::
+    <a href=" {% url 'delete_listing_view' listing.pk %}">Delete</a>
+    <br>
+  {% endfor %}
+  {% endblock %}

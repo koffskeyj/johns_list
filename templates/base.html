@@ -14,7 +14,7 @@
         <a href="{% url 'logout' %}?next=/" role="button">Logout</a> ::
         <a href=" {% url 'listing_create_view' %}" role="button">Create Listing</a> ::
         <a href="{% url 'user_listing_view' %}" role="button">View Your Listings</a> ::
-        <a href="{% url 'user_city_listing_view' %}" role="button">Listings By City</a>
+        <a href="{% url 'user_city_listing_view' %}" role="button">Listings Near You</a>
       <br>
       {{request.user}}
       <br>
