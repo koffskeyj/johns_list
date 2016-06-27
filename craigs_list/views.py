@@ -54,10 +54,10 @@ class SubCategoryListingView(ListView):
 class UserCityListingView(ListView):
     template_name = "user_city_listing.html"
 
-    def get_queryset(self):
+    def get_queryset(self, **kwargs):
         if self.request.user.is_authenticated:
             profile = Profile()
-            return Listing.objects.filter(city=self.profile.city).exclude(user=self.request.user)
+            return Listing.objects.filter(city=user_instance.user_profile).exclude(user=self.request.user)
 
 
 class AnonChooseCityView(FormView):

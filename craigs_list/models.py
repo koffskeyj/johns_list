@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.forms import ModelForm
+from django.db.models import signals
 
 COLUMBIA = 'Columbia'
 GREENVILLE = 'Greenville'
@@ -10,7 +11,7 @@ SPARTANBURG = 'Spartanburg'
 CITY_CHOICES = ((COLUMBIA, 'Columbia'), (GREENVILLE, 'Greenville'), (SPARTANBURG, 'Spartanburg'))
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='user_profile')
     city = models.CharField(max_length=30, choices=CITY_CHOICES, default=GREENVILLE)
 
     def __str__(self):
