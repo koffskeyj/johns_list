@@ -11,7 +11,7 @@ SPARTANBURG = 'Spartanburg'
 CITY_CHOICES = ((COLUMBIA, 'Columbia'), (GREENVILLE, 'Greenville'), (SPARTANBURG, 'Spartanburg'))
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, related_name='user_profile')
+    user = models.OneToOneField(User)
     city = models.CharField(max_length=30, choices=CITY_CHOICES, default=GREENVILLE)
 
     def __str__(self):
