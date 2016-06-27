@@ -29,7 +29,7 @@ class UserCreateView(CreateView):
 
 class ListingCreateView(LoginRequiredMixin, CreateView):
     model = Listing
-    fields = ["listing_category", "listing_subcategory", "title", "description", "value", "photo"]
+    fields = ["listing_category", "listing_subcategory", "title", "description", "value", "city", "photo"]
     success_url = "/"
 
     def form_valid(self, form):
@@ -56,7 +56,8 @@ class UserCityListingView(ListView):
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            return Listing.objects.filter(city=self.request.user.profile.city).exclude(user=self.request.user)
+            profile = Profile()
+            return Listing.objects.filter(city=self.profile.city).exclude(user=self.request.user)
 
 
 class AnonChooseCityView(FormView):
@@ -121,7 +122,7 @@ class ListingDetailedView(DetailView):
     model = Listing
 
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     fields = ["city"]
     success_url = reverse_lazy("profile_update_view")
 

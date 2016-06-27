@@ -5,10 +5,9 @@
     <br>
     {% for listing in object_list  %}
     <a href="{% url 'sort_by_created_view' listing.listing_subcategory.pk %}">Sort By Created</a> ::
-    <a href="{% url 'sort_by_highest_view' listing.listing_subcategory.pk %}">Sort By Highest Price</a> ::
-    <a href="{% url 'sort_by_lowest_view' listing.listing_subcategory.pk %}">Sort By Lowest Price</a>
+    <a href="{% url 'sort_by_highest_view' listing.listing_subcategory.pk %}">Sort By Highest Value</a> ::
+    <a href="{% url 'sort_by_lowest_view' listing.listing_subcategory.pk %}">Sort By Lowest Value</a>
     {% endfor %}
-    <br>
     <br>
     <br>
     {% for listing in object_list %}

@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+
   <h1>Categories</h1>
-  <ul class="nav nav-tabs nav-justified">
+  <ul class="justified">
     {% for category in categories %}
       <li><h4>{{ category }}</h4></li>
       {% for subcategory in category.subcategories.all %}
@@ -11,5 +12,4 @@
       {% endfor %}
     {% endfor %}
   </ul>
-
 {% endblock %}
