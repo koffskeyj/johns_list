@@ -3,11 +3,11 @@
     {% block content %}
     <h1>Listings</h1>
     <br>
-    {% with listing=object_list|first %}
-      <a href="{% url 'sort_by_created_view' listing.listing_subcategory.pk %}">Sort By Created</a> ::
-      <a href="{% url 'sort_by_highest_view' listing.listing_subcategory.pk %}">Sort By Highest Value</a> ::
-      <a href="{% url 'sort_by_lowest_view' listing.listing_subcategory.pk %}">Sort By Lowest Value</a>
-    {% endwith %}
+      {% for listing in object_list|slice:"1" %}
+        <a href="{% url 'sort_by_created_view' listing.listing_subcategory.pk %}">Sort By Created</a> ::
+        <a href="{% url 'sort_by_highest_view' listing.listing_subcategory.pk %}">Sort By Highest Value</a> ::
+        <a href="{% url 'sort_by_lowest_view' listing.listing_subcategory.pk %}">Sort By Lowest Value</a>
+      {% endfor %}
     <br>
     <br>
     {% for listing in object_list %}
