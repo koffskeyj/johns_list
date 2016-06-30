@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.forms import ModelForm
 from django.db.models import signals
+from rest_framework.authtoken.models import Token
 
 COLUMBIA = 'Columbia'
 GREENVILLE = 'Greenville'
@@ -60,3 +61,10 @@ def create_user_profile(**kwargs):
 
     if created:
         Profile.objects.create(user=instance)
+
+@receiver(post_save, sender="auth.User")
+def create_token(**kwargs):
+    created = kwargs.get("created")
+    instance = kwargs.get("instance")
+    if created:
+        Token.objects.create(user=instance)

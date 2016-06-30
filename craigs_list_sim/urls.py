@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from craigs_list.views import IndexView, UserCreateView, UserListingView, ProfileUpdateView, ListingCreateView, ListingDetailedView, SubCategoryListingView, UserCityListingView, AnonChooseCityView, ListingUpdateView, ListingDeleteView, AnonListingsView, SortByCreatedView, SortByHighestView, SortByLowestView
+from cl_api.views import  CategoryListAPIView, CategoryDetailAPIView, SubcategoryListAPIView, SubcategoryDetailAPIView, ListingListAPIView, ListingDetailAPIView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -36,5 +37,11 @@ urlpatterns = [
     url(r'^listing_create/$', ListingCreateView.as_view(), name='listing_create_view'),
     url(r'^sort_by_created/(?P<pk>\d+)/$', SortByCreatedView.as_view(), name='sort_by_created_view'),
     url(r'^sort_by_highest/(?P<pk>\d+)/$', SortByHighestView.as_view(), name='sort_by_highest_view'),
-    url(r'^sort_by_lowest/(?P<pk>\d+)/$', SortByLowestView.as_view(), name='sort_by_lowest_view')
+    url(r'^sort_by_lowest/(?P<pk>\d+)/$', SortByLowestView.as_view(), name='sort_by_lowest_view'),
+    url(r'^api/categories/$',CategoryListAPIView.as_view(), name='category_list_api_view'),
+    url(r'^api/categories/(?P<pk>\d+)/$', CategoryDetailAPIView.as_view(), name='category_detail_api_view'),
+    url(r'^api/subcategories/$', SubcategoryListAPIView.as_view(), name='subcategory_list_api_view'),
+    url(r'^api/subcategories/(?P<pk>\d+)/$', SubcategoryDetailAPIView.as_view(), name='subcategory_detail_api_view'),
+    url(r'^api/listings/$', ListingListAPIView.as_view(), name="listing_list_api_view"),
+    url(r'^api/listings/(?P<pk>\d+)/$', ListingDetailAPIView.as_view(), name="listing_detail_api_view")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
