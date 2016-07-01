@@ -10,6 +10,10 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class SubCategorySerializer(serializers.ModelSerializer):
+    # category = serializers.HyperlinkedRelatedField(
+    # read_only=True,
+    # view_name="category_detail_api_view"
+    # )
 
     class Meta:
         model = SubCategory
@@ -17,6 +21,19 @@ class SubCategorySerializer(serializers.ModelSerializer):
 
 
 class ListingSerializer(serializers.ModelSerializer):
+
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    # listing_category = serializers.HyperlinkedRelatedField(
+    # read_only=True,
+    # view_name="category_detail_api_view"
+    # )
+
+    # listing_subcategory = serializers.HyperlinkedRelatedField(
+    # read_only=True,
+    # view_name="subcategory_detail_api_view"
+    # )
+
 
     class Meta:
         model = Listing
