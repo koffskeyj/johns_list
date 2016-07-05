@@ -3,7 +3,10 @@
 {% block content %}
 <br>
   {% for listing in object_list  %}
-    {{ listing }}
+  {{ listing.listing_category}} ::
+  {{ listing.listing_subcategory}} ::
+  {{ listing }} ::
+    <a href="{% url 'subcategory_listing_view' listing.listing_subcategory.pk %}">Back to Listings</a>
     <br>
   {% endfor %}
 {% endblock %}
